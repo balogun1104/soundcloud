@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.new-entry {
+  background-color: blue;
+}
+
+.up-arrow {
+  color: green;
+}
+
+.down-arrow {
+  color: red;
+}
+
+.position-cell {
+  display: flex;
+  align-items: center;
+}
+
+.indicator {
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.select {
+  opacity: 1;
+  transform: none;
+  min-width: 89px;
+  transition: opacity 207ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 138ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  top: 91px;
+  left: 1047px;
+  transform-origin: 0px 26px;
+}

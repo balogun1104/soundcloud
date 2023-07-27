@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Submit TikTok URL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .response {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Submit TikTok URL</h1>
+        <form id="tiktokForm">
+            <label for="url">TikTok URL:</label>
+            <input type="text" id="url" name="url" placeholder="https://www.tiktok.com/@fifawomensworldcup" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="response" id="responseContainer"></div>
+
+        <script>
+            document.getElementById('tiktokForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const urlInput = document.getElementById('url');
+                const tiktokUrl = urlInput.value.trim();
+
+                if (tiktokUrl === "") {
+                    alert("Please enter a valid TikTok URL.");
+                    return;
+                }
+
+                const requestData = {
+                    url: tiktokUrl
+                };
+
+                fetch('http://167.99.195.35/api/tik', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const responseContainer = document.getElementById('responseContainer');
+                        responseContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred during the POST request.');
+                    });
+            });
+        </script>
+    </div>
+</body>
+
+</html>
